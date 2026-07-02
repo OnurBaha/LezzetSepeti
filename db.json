@@ -1,0 +1,842 @@
+{
+  "users": [
+    {
+      "id": "u-101",
+      "name": "Caner Yıldırım",
+      "email": "caner@mail.com",
+      "password": "123456",
+      "role": "customer",
+      "phone": "05551234567",
+      "addresses": [
+        {
+          "id": "a1",
+          "title": "Ev",
+          "detail": "Kadıköy, Moda Cad. No:12, İstanbul"
+        },
+        {
+          "id": "a2",
+          "title": "İş",
+          "detail": "Levent, Büyükdere Cad. No:55, İstanbul"
+        }
+      ],
+      "savedCards": [
+        {
+          "id": "c1",
+          "cardHolder": "Caner Yıldırım",
+          "cardNumber": "4355 **** **** 1122",
+          "expiry": "12/27",
+          "bankName": "Garanti"
+        }
+      ],
+      "createdAt": "2025-01-15"
+    },
+    {
+      "id": "u-102",
+      "name": "Zeynep Kaya",
+      "email": "zeynep@mail.com",
+      "password": "123456",
+      "role": "customer",
+      "phone": "05559876543",
+      "addresses": [
+        {
+          "id": "a3",
+          "title": "Ev",
+          "detail": "Beşiktaş, Barbaros Blv. No:8, İstanbul"
+        }
+      ],
+      "savedCards": [],
+      "createdAt": "2025-03-20"
+    },
+    {
+      "id": "u-201",
+      "name": "Mehmet Burger",
+      "email": "burger@merchant.com",
+      "password": "merchant123",
+      "role": "merchant",
+      "phone": "05321234567",
+      "restaurantId": "r-201",
+      "addresses": [],
+      "savedCards": [],
+      "createdAt": "2025-01-10"
+    },
+    {
+      "id": "u-202",
+      "name": "Ayşe Pizza",
+      "email": "pizza@merchant.com",
+      "password": "merchant123",
+      "role": "merchant",
+      "phone": "05329876543",
+      "restaurantId": "r-202",
+      "addresses": [],
+      "savedCards": [],
+      "createdAt": "2025-02-14"
+    },
+    {
+      "id": "u-203",
+      "name": "Serhan Döner",
+      "email": "doner@merchant.com",
+      "password": "merchant123",
+      "role": "merchant",
+      "phone": "05323456789",
+      "restaurantId": "r-203",
+      "addresses": [],
+      "savedCards": [],
+      "createdAt": "2025-04-01"
+    },
+    {
+      "id": "u-301",
+      "name": "Ali Kurye",
+      "email": "ali@courier.com",
+      "password": "courier123",
+      "role": "courier",
+      "phone": "05457654321",
+      "isActive": true,
+      "vehicleType": "motosiklet",
+      "addresses": [],
+      "savedCards": [],
+      "createdAt": "2025-01-20"
+    },
+    {
+      "id": "u-401",
+      "name": "Sistem Admin",
+      "email": "admin@lezzetsepeti.com",
+      "password": "admin123",
+      "role": "admin",
+      "phone": "05001234567",
+      "addresses": [],
+      "savedCards": [],
+      "createdAt": "2024-12-01"
+    },
+    {
+      "name": "onur baha",
+      "email": "onur@baha.com",
+      "phone": "05555555555",
+      "password": "123456",
+      "id": "CHzRYVW7K5Y",
+      "role": "customer",
+      "addresses": [],
+      "savedCards": [],
+      "createdAt": "2026-07-02"
+    }
+  ],
+  "restaurants": [
+    {
+      "id": "r-201",
+      "name": "Burger Vadisi",
+      "description": "İstanbul'un en iyi el yapımı burgerleri, taze malzemeler ve özel soslarımızla.",
+      "cuisine": "Burger",
+      "tags": [
+        "Burger",
+        "Fast Food",
+        "Amerikan"
+      ],
+      "rating": 4.5,
+      "reviewCount": 328,
+      "deliveryTime": "25-35 dk",
+      "deliveryFee": 15,
+      "minOrderAmount": 120,
+      "isOpen": true,
+      "isApproved": true,
+      "status": "active",
+      "logo": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80",
+      "coverImage": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200&q=80",
+      "address": "Kadıköy, İstanbul",
+      "phone": "02163456789",
+      "workingHours": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "scores": {
+        "speed": 4.6,
+        "service": 4.4,
+        "flavor": 4.5
+      },
+      "merchantId": "u-201",
+      "commission": 15,
+      "totalRevenue": 85400,
+      "createdAt": "2025-01-10"
+    },
+    {
+      "id": "r-202",
+      "name": "Napoli Pizza",
+      "description": "Otantik İtalyan pizza deneyimi. Ahşap fırınımızda pişirilen geleneksel tarifler.",
+      "cuisine": "Pizza",
+      "tags": [
+        "Pizza",
+        "İtalyan",
+        "Makarna"
+      ],
+      "rating": 4.7,
+      "reviewCount": 512,
+      "deliveryTime": "30-45 dk",
+      "deliveryFee": 20,
+      "minOrderAmount": 150,
+      "isOpen": true,
+      "isApproved": true,
+      "status": "active",
+      "logo": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80",
+      "coverImage": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80",
+      "address": "Beşiktaş, İstanbul",
+      "phone": "02129876543",
+      "workingHours": {
+        "open": "11:00",
+        "close": "24:00"
+      },
+      "scores": {
+        "speed": 4.5,
+        "service": 4.8,
+        "flavor": 4.9
+      },
+      "merchantId": "u-202",
+      "commission": 15,
+      "totalRevenue": 124500,
+      "createdAt": "2025-02-14"
+    },
+    {
+      "id": "r-203",
+      "name": "Sultanın Sofrası",
+      "description": "Geleneksel Türk lezzetleri, ev yapımı tarifler ve taze malzemelerle hazırlanıyor.",
+      "cuisine": "Türk Mutfağı",
+      "tags": [
+        "Türk",
+        "Döner",
+        "Lahmacun",
+        "Pide"
+      ],
+      "rating": 4.8,
+      "reviewCount": 897,
+      "deliveryTime": "20-30 dk",
+      "deliveryFee": 10,
+      "minOrderAmount": 80,
+      "isOpen": true,
+      "isApproved": true,
+      "status": "active",
+      "logo": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
+      "coverImage": "https://images.unsplash.com/photo-1548340748-6d2b7d7da280?w=1200&q=80",
+      "address": "Fatih, İstanbul",
+      "phone": "02123456789",
+      "workingHours": {
+        "open": "09:00",
+        "close": "22:00"
+      },
+      "scores": {
+        "speed": 4.9,
+        "service": 4.7,
+        "flavor": 4.8
+      },
+      "merchantId": "u-203",
+      "commission": 12,
+      "totalRevenue": 215300,
+      "createdAt": "2025-04-01"
+    },
+    {
+      "id": "r-204",
+      "name": "Sushi Zen",
+      "description": "Authentic Japanese sushi ve sashimi deneyimi. Taze balık ve geleneksel Japon tarifleri.",
+      "cuisine": "Japon",
+      "tags": [
+        "Sushi",
+        "Japon",
+        "Deniz Ürünleri"
+      ],
+      "rating": 4.6,
+      "reviewCount": 203,
+      "deliveryTime": "35-50 dk",
+      "deliveryFee": 25,
+      "minOrderAmount": 200,
+      "isOpen": false,
+      "isApproved": true,
+      "status": "active",
+      "logo": "https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=400&q=80",
+      "coverImage": "https://images.unsplash.com/photo-1553621042-f6e147245754?w=1200&q=80",
+      "address": "Nişantaşı, İstanbul",
+      "phone": "02122334455",
+      "workingHours": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "scores": {
+        "speed": 4.3,
+        "service": 4.7,
+        "flavor": 4.8
+      },
+      "merchantId": null,
+      "commission": 18,
+      "totalRevenue": 67200,
+      "createdAt": "2025-05-15"
+    },
+    {
+      "id": "r-205",
+      "name": "Vegan & Fresh",
+      "description": "Sağlıklı, bitkisel beslenme için taze vegan ve vejetaryen seçenekler.",
+      "cuisine": "Vegan",
+      "tags": [
+        "Vegan",
+        "Vejetaryen",
+        "Sağlıklı",
+        "Salata"
+      ],
+      "rating": 4.4,
+      "reviewCount": 156,
+      "deliveryTime": "25-40 dk",
+      "deliveryFee": 18,
+      "minOrderAmount": 100,
+      "isOpen": true,
+      "isApproved": true,
+      "status": "active",
+      "logo": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80",
+      "coverImage": "https://images.unsplash.com/photo-1540914124281-342587941389?w=1200&q=80",
+      "address": "Şişli, İstanbul",
+      "phone": "02125556677",
+      "workingHours": {
+        "open": "08:00",
+        "close": "21:00"
+      },
+      "scores": {
+        "speed": 4.2,
+        "service": 4.5,
+        "flavor": 4.5
+      },
+      "merchantId": null,
+      "commission": 14,
+      "totalRevenue": 43800,
+      "createdAt": "2025-06-01"
+    },
+    {
+      "id": "r-206",
+      "name": "Köz Mangal",
+      "description": "Odun közünde pişen lezzetli et yemekleri ve kebaplar. Geleneksel mangal kültürü.",
+      "cuisine": "Izgara",
+      "tags": [
+        "Kebap",
+        "Izgara",
+        "Et",
+        "Mangal"
+      ],
+      "rating": 4.9,
+      "reviewCount": 1204,
+      "deliveryTime": "30-45 dk",
+      "deliveryFee": 12,
+      "minOrderAmount": 150,
+      "isOpen": true,
+      "isApproved": true,
+      "status": "active",
+      "logo": "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400&q=80",
+      "coverImage": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80",
+      "address": "Üsküdar, İstanbul",
+      "phone": "02163334455",
+      "workingHours": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "scores": {
+        "speed": 4.8,
+        "service": 4.9,
+        "flavor": 5
+      },
+      "merchantId": null,
+      "commission": 13,
+      "totalRevenue": 318700,
+      "createdAt": "2024-12-15"
+    },
+    {
+      "name": "BayDöner",
+      "cuisine": "Döner",
+      "address": "Esenler, İstanbul",
+      "deliveryTime": "30-40 dk",
+      "deliveryFee": 37,
+      "minOrderAmount": 150,
+      "commission": 15,
+      "isOpen": true,
+      "id": "_bgF0oas_C4",
+      "isApproved": true,
+      "status": "active",
+      "rating": 0,
+      "reviewCount": 0,
+      "totalRevenue": 0,
+      "createdAt": "2026-07-02"
+    }
+  ],
+  "menus": [
+    {
+      "id": "m-301",
+      "restaurantId": "r-201",
+      "name": "Kasap Burger Menü",
+      "description": "150gr dana köfte, patates kızartması, içecek ile.",
+      "price": 185,
+      "category": "Menüler",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80",
+      "options": [
+        {
+          "id": "o1",
+          "title": "İçecek Seçimi",
+          "required": true,
+          "items": [
+            "Coca-Cola",
+            "Fanta",
+            "Su",
+            "Ayran"
+          ]
+        },
+        {
+          "id": "o2",
+          "title": "Sos Seçimi",
+          "required": false,
+          "items": [
+            "Ketçap",
+            "Mayonez",
+            "Ranch Sos",
+            "BBQ Sos"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-302",
+      "restaurantId": "r-201",
+      "name": "Klasik Burger",
+      "description": "120gr köfte, marul, domates, salatalık, cheddar peyniri.",
+      "price": 130,
+      "category": "Burgerler",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&q=80",
+      "options": [
+        {
+          "id": "o3",
+          "title": "Ekstra Malzeme",
+          "required": false,
+          "items": [
+            "Ekstra Köfte (+25₺)",
+            "Ekstra Peynir (+15₺)",
+            "Bacon (+20₺)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-303",
+      "restaurantId": "r-201",
+      "name": "Patates Kızartması (Büyük)",
+      "description": "Çıtır çıtır büyük boy patates kızartması.",
+      "price": 55,
+      "category": "Yan Ürünler",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80",
+      "options": []
+    },
+    {
+      "id": "m-304",
+      "restaurantId": "r-201",
+      "name": "Onion Ring",
+      "description": "Çıtır soğan halkası, ranch sos eşliğinde.",
+      "price": 65,
+      "category": "Yan Ürünler",
+      "inStock": false,
+      "image": "https://images.unsplash.com/photo-1639024471283-03518883512d?w=400&q=80",
+      "options": []
+    },
+    {
+      "id": "m-401",
+      "restaurantId": "r-202",
+      "name": "Margherita Pizza",
+      "description": "San Marzano domates sosu, mozzarella, taze fesleğen.",
+      "price": 180,
+      "category": "Pizzalar",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&q=80",
+      "options": [
+        {
+          "id": "o4",
+          "title": "Hamur Seçimi",
+          "required": true,
+          "items": [
+            "İnce Hamur",
+            "Kalın Hamur",
+            "Tam Buğday"
+          ]
+        },
+        {
+          "id": "o5",
+          "title": "Ekstra Malzeme",
+          "required": false,
+          "items": [
+            "Ekstra Peynir (+20₺)",
+            "Mantar (+15₺)",
+            "Jalapeno (+10₺)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-402",
+      "restaurantId": "r-202",
+      "name": "Pepperoni Pizza",
+      "description": "Pepperoni, mozzarella, özel domates sosu.",
+      "price": 210,
+      "category": "Pizzalar",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80",
+      "options": [
+        {
+          "id": "o6",
+          "title": "Hamur Seçimi",
+          "required": true,
+          "items": [
+            "İnce Hamur",
+            "Kalın Hamur"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-403",
+      "restaurantId": "r-202",
+      "name": "Tiramisù",
+      "description": "Geleneksel İtalyan tiramisù, mascarpone ve espresso ile.",
+      "price": 95,
+      "category": "Tatlılar",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&q=80",
+      "options": []
+    },
+    {
+      "id": "m-501",
+      "restaurantId": "r-203",
+      "name": "Döner Dürüm",
+      "description": "Taze lavaş, dana döner, mevsim sebzeleri ve özel sos.",
+      "price": 95,
+      "category": "Dürümler",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
+      "options": [
+        {
+          "id": "o7",
+          "title": "Sos Seçimi",
+          "required": false,
+          "items": [
+            "Acı Sos",
+            "Sarımsaklı Yoğurt",
+            "Ezme"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-502",
+      "restaurantId": "r-203",
+      "name": "Lahmacun (4'lü)",
+      "description": "İnce hamurlu, kıymalı geleneksel Türk pizzası.",
+      "price": 120,
+      "category": "Lahmacun & Pide",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1548340748-6d2b7d7da280?w=400&q=80",
+      "options": []
+    },
+    {
+      "id": "m-503",
+      "restaurantId": "r-203",
+      "name": "Mercimek Çorbası",
+      "description": "Ev yapımı kremalı kırmızı mercimek çorbası.",
+      "price": 55,
+      "category": "Çorbalar",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80",
+      "options": []
+    }
+  ],
+  "coupons": [
+    {
+      "id": "cp-401",
+      "code": "LEZZET20",
+      "description": "Tüm siparişlerde %20 indirim",
+      "type": "percentage",
+      "value": 20,
+      "minOrder": 150,
+      "restaurantId": "all",
+      "maxUses": 1000,
+      "usedCount": 437,
+      "expiryDate": "2026-12-31",
+      "isActive": true,
+      "createdAt": "2026-01-01"
+    },
+    {
+      "id": "cp-402",
+      "code": "ILKSIPARIM",
+      "description": "İlk siparişe özel 50₺ indirim",
+      "type": "fixed",
+      "value": 50,
+      "minOrder": 100,
+      "restaurantId": "all",
+      "maxUses": 500,
+      "usedCount": 212,
+      "expiryDate": "2026-09-30",
+      "isActive": true,
+      "createdAt": "2026-03-01"
+    },
+    {
+      "id": "cp-403",
+      "code": "BURGER15",
+      "description": "Burger Vadisi'nde %15 indirim",
+      "type": "percentage",
+      "value": 15,
+      "minOrder": 120,
+      "restaurantId": "r-201",
+      "maxUses": 200,
+      "usedCount": 89,
+      "expiryDate": "2026-08-31",
+      "isActive": true,
+      "createdAt": "2026-05-01"
+    },
+    {
+      "id": "cp-404",
+      "code": "ESKIKUPON",
+      "description": "Süresi geçmiş kupon",
+      "type": "fixed",
+      "value": 30,
+      "minOrder": 80,
+      "restaurantId": "all",
+      "maxUses": 100,
+      "usedCount": 100,
+      "expiryDate": "2025-12-31",
+      "isActive": false,
+      "createdAt": "2025-10-01"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord-501",
+      "customerId": "u-101",
+      "restaurantId": "r-201",
+      "courierId": "u-301",
+      "items": [
+        {
+          "menuId": "m-301",
+          "name": "Kasap Burger Menü",
+          "quantity": 2,
+          "selectedOptions": [
+            "Coca-Cola",
+            "Ranch Sos"
+          ],
+          "price": 185
+        },
+        {
+          "menuId": "m-303",
+          "name": "Patates Kızartması (Büyük)",
+          "quantity": 1,
+          "selectedOptions": [],
+          "price": 55
+        }
+      ],
+      "financials": {
+        "subTotal": 425,
+        "deliveryFee": 15,
+        "discount": 85,
+        "totalAmount": 355
+      },
+      "paymentMethod": "online_credit_card",
+      "paymentStatus": "paid",
+      "status": "delivered",
+      "address": "Kadıköy, Moda Cad. No:12, İstanbul",
+      "customerNote": "Kapı zili çalışmıyor, lütfen mesaj atın.",
+      "couponCode": "LEZZET20",
+      "orderDate": "2026-06-28T18:30:00Z",
+      "deliveredAt": "2026-06-28T19:05:00Z"
+    },
+    {
+      "id": "ord-502",
+      "customerId": "u-101",
+      "restaurantId": "r-202",
+      "courierId": "u-301",
+      "items": [
+        {
+          "menuId": "m-401",
+          "name": "Margherita Pizza",
+          "quantity": 1,
+          "selectedOptions": [
+            "İnce Hamur",
+            "Ekstra Peynir (+20₺)"
+          ],
+          "price": 200
+        }
+      ],
+      "financials": {
+        "subTotal": 200,
+        "deliveryFee": 20,
+        "discount": 0,
+        "totalAmount": 220
+      },
+      "paymentMethod": "door_cash",
+      "paymentStatus": "pending",
+      "status": "preparing",
+      "address": "Kadıköy, Moda Cad. No:12, İstanbul",
+      "customerNote": "",
+      "couponCode": null,
+      "orderDate": "2026-07-02T11:00:00Z",
+      "deliveredAt": null
+    },
+    {
+      "id": "ord-503",
+      "customerId": "u-102",
+      "restaurantId": "r-203",
+      "courierId": null,
+      "items": [
+        {
+          "menuId": "m-501",
+          "name": "Döner Dürüm",
+          "quantity": 2,
+          "selectedOptions": [
+            "Acı Sos"
+          ],
+          "price": 95
+        },
+        {
+          "menuId": "m-503",
+          "name": "Mercimek Çorbası",
+          "quantity": 2,
+          "selectedOptions": [],
+          "price": 55
+        }
+      ],
+      "financials": {
+        "subTotal": 300,
+        "deliveryFee": 10,
+        "discount": 50,
+        "totalAmount": 260
+      },
+      "paymentMethod": "online_credit_card",
+      "paymentStatus": "paid",
+      "status": "on_the_way",
+      "address": "Beşiktaş, Barbaros Blv. No:8, İstanbul",
+      "customerNote": "",
+      "couponCode": "ILKSIPARIM",
+      "orderDate": "2026-07-02T10:30:00Z",
+      "deliveredAt": null
+    },
+    {
+      "customerId": "u-101",
+      "restaurantId": "r-203",
+      "items": [
+        {
+          "menuId": "m-501",
+          "name": "Döner Dürüm",
+          "quantity": 1,
+          "selectedOptions": [],
+          "price": 95
+        },
+        {
+          "menuId": "m-502",
+          "name": "Lahmacun (4'lü)",
+          "quantity": 1,
+          "selectedOptions": [],
+          "price": 120
+        }
+      ],
+      "financials": {
+        "subTotal": 215,
+        "deliveryFee": 15,
+        "discount": 43,
+        "totalAmount": 187
+      },
+      "paymentMethod": "online_credit_card",
+      "address": "Kadıköy, Moda Cad. No:12, İstanbul",
+      "customerNote": "",
+      "couponCode": "LEZZET20",
+      "id": "L1Od9jf0kWg",
+      "status": "received",
+      "paymentStatus": "paid",
+      "orderDate": "2026-07-02T10:42:24.295Z",
+      "deliveredAt": null,
+      "courierId": null
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-601",
+      "restaurantId": "r-201",
+      "customerId": "u-101",
+      "orderId": "ord-501",
+      "comment": "Burger çok sıcaktı ve lezzetliydi! Patatesler biraz tuzsuzdu ama genel olarak mükemmel.",
+      "ratings": {
+        "speed": 5,
+        "service": 4,
+        "flavor": 5
+      },
+      "averageRating": 4.67,
+      "createdAt": "2026-06-29",
+      "merchantReply": "Geri bildiriminiz için teşekkürler! Patatesler konusunda dikkat edeceğiz.",
+      "isVisible": true
+    },
+    {
+      "id": "rev-602",
+      "restaurantId": "r-202",
+      "customerId": "u-102",
+      "orderId": null,
+      "comment": "Pizza hamuru mükemmeldi, gerçekten otantik İtalyan tadı. Kesinlikle tekrar sipariş vereceğim.",
+      "ratings": {
+        "speed": 4,
+        "service": 5,
+        "flavor": 5
+      },
+      "averageRating": 4.67,
+      "createdAt": "2026-07-01",
+      "merchantReply": null,
+      "isVisible": true
+    },
+    {
+      "id": "rev-603",
+      "restaurantId": "r-203",
+      "customerId": "u-101",
+      "orderId": null,
+      "comment": "Döner dürüm harika! Hızlı teslimat, sıcak geldi. Teşekkürler.",
+      "ratings": {
+        "speed": 5,
+        "service": 5,
+        "flavor": 5
+      },
+      "averageRating": 5,
+      "createdAt": "2026-06-30",
+      "merchantReply": "Teşekkür ederiz, sizi tekrar ağırlamayı bekliyoruz!",
+      "isVisible": true
+    },
+    {
+      "ratings": {
+        "speed": 4,
+        "service": 4,
+        "flavor": 4
+      },
+      "comment": "",
+      "customerId": "u-101",
+      "orderId": "ord-501",
+      "id": "XLLtp4j28vE",
+      "restaurantId": "r-201",
+      "averageRating": 4,
+      "merchantReply": null,
+      "isVisible": true,
+      "createdAt": "2026-07-02"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1",
+      "userId": "u-101",
+      "title": "Siparişiniz Hazırlanıyor",
+      "message": "Napoli Pizza'dan verdiğiniz sipariş hazırlanmaya başladı.",
+      "type": "order_update",
+      "orderId": "ord-502",
+      "isRead": false,
+      "createdAt": "2026-07-02T11:05:00Z"
+    },
+    {
+      "id": "notif-2",
+      "userId": "u-101",
+      "title": "Kampanya: LEZZET20",
+      "message": "Tüm siparişlerde %20 indirim! Kodu kaçırma.",
+      "type": "promotion",
+      "orderId": null,
+      "isRead": true,
+      "createdAt": "2026-07-01T09:00:00Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
