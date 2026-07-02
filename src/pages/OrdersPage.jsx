@@ -5,9 +5,10 @@ import { addReview } from '../store/slices/reviewSlice';
 import MainLayout from '../components/layout/MainLayout';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import Modal from '../components/common/Modal';
-import { CheckCircle2, Clock, Truck, Package, XCircle, Star } from 'lucide-react';
+import { CheckCircle2, Clock, Truck, Package, Star } from 'lucide-react';
 import { formatPrice, formatDateTime, getOrderStatusLabel, getOrderStatusColor } from '../utils/helpers';
 import { useAuth } from '../hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const STATUS_STEPS = ['received', 'preparing', 'on_the_way', 'delivered'];
 const STEP_ICONS = {
@@ -96,6 +97,7 @@ const OrdersPage = () => {
   const { items: orders, status } = useSelector((s) => s.order);
   const [reviewOrder, setReviewOrder] = useState(null);
   const [tab, setTab] = useState('active');
+  const [reviewedIds, setReviewedIds] = useState(new Set());
 
   useEffect(() => {
     if (user?.id) dispatch(fetchCustomerOrders(user.id));
@@ -104,8 +106,20 @@ const OrdersPage = () => {
   const activeOrders    = orders.filter((o) => !['delivered', 'cancelled'].includes(o.status));
   const completedOrders = orders.filter((o) =>  ['delivered', 'cancelled'].includes(o.status));
 
-  const handleReviewSubmit = (reviewData) => {
-    dispatch(addReview({ restaurantId: reviewOrder.restaurantId, reviewData }));
+  const handleReviewSubmit = async (reviewData) => {
+    const result = await dispatch(addReview({ restaurantId: reviewOrder.restaurantId, reviewData }));
+    if (result.meta.requestStatus === 'fulfilled') {
+      // Siparişi DB'de reviewed: true olarak işaretle
+      try {
+        await import('axios').then(({ default: axios }) =>
+          axios.patch(`http://localhost:5000/orders/${reviewOrder.id}`, { reviewed: true })
+        );
+      } catch (_) { /* sessizce geç */ }
+      setReviewedIds(prev => new Set([...prev, reviewOrder.id]));
+      toast.success('Değerlendirmeniz gönderildi! Teşekkür ederiz ♥️');
+    } else {
+      toast.error('Değerlendirme gönderilirken hata oluştu');
+    }
     setReviewOrder(null);
   };
 
@@ -168,14 +182,19 @@ const OrdersPage = () => {
                   <OrderStatusBar status={order.status} />
                 )}
 
-                {/* Review Button for delivered orders */}
-                {order.status === 'delivered' && (
+                {/* Review Button - sadece teslim edilmiş ve henüz değerlendirilmemiş siparişler */}
+                {order.status === 'delivered' && !reviewedIds.has(order.id) && !order.reviewed && (
                   <button
                     onClick={() => setReviewOrder(order)}
                     className="btn-secondary w-full justify-center mt-4 text-sm"
                   >
                     <Star size={16} className="text-warning" /> Değerlendir
                   </button>
+                )}
+                {(order.status === 'delivered' && (reviewedIds.has(order.id) || order.reviewed)) && (
+                  <div className="flex items-center justify-center gap-2 mt-4 text-xs text-success font-medium">
+                    <CheckCircle2 size={14} /> Değerlendirme yapıldı
+                  </div>
                 )}
               </div>
             ))}

@@ -5,6 +5,7 @@ import AdminLayout from './AdminLayout';
 import Modal from '../../components/common/Modal';
 import { Plus, Trash2, Tag, ToggleLeft, ToggleRight, CalendarClock } from 'lucide-react';
 import { formatDate, formatPrice } from '../../utils/helpers';
+import toast from 'react-hot-toast';
 
 const EMPTY = { code: '', description: '', type: 'percentage', value: '', minOrder: '', restaurantId: 'all', expiryDate: '', maxUses: 100 };
 
@@ -14,6 +15,7 @@ const AdminCoupons = () => {
   const [isModal, setIsModal] = useState(false);
   const [form, setForm] = useState(EMPTY);
   const [tab, setTab] = useState('active');
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
   useEffect(() => { dispatch(fetchCoupons()); }, [dispatch]);
 
@@ -30,7 +32,12 @@ const AdminCoupons = () => {
   };
 
   const handleToggle = (c) => dispatch(updateCoupon({ id: c.id, data: { isActive: !c.isActive } }));
-  const handleDelete = (id) => { if (window.confirm('Kuponu silmek istediğinize emin misiniz?')) dispatch(deleteCoupon(id)); };
+  const handleDelete = (id) => { setConfirmDeleteId(id); };
+  const confirmDelete = () => {
+    dispatch(deleteCoupon(confirmDeleteId));
+    toast.success('Kupon silindi');
+    setConfirmDeleteId(null);
+  };
 
   const list = tab === 'active' ? active : inactive;
 
@@ -40,6 +47,19 @@ const AdminCoupons = () => {
         <h1 className="text-2xl font-bold text-textColor-light dark:text-textColor-dark">Kupon Yönetimi</h1>
         <button onClick={() => setIsModal(true)} className="btn-primary"><Plus size={18} /> Yeni Kupon</button>
       </div>
+
+      {confirmDeleteId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-2xl max-w-sm w-full mx-4">
+            <h3 className="font-bold text-lg mb-2">Kuponu Sil</h3>
+            <p className="text-sm text-gray-500 mb-5">Bu kuponu kalıcı olarak silmek istediğinize emin misiniz?</p>
+            <div className="flex gap-3">
+              <button onClick={confirmDelete} className="btn-primary flex-1 justify-center !bg-danger hover:!bg-red-600 !border-danger">Evet, Sil</button>
+              <button onClick={() => setConfirmDeleteId(null)} className="btn-secondary flex-1 justify-center">İptal</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Tabs */}
       <div className="flex gap-2 mb-5 border-b border-gray-100 dark:border-gray-800">

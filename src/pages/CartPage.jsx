@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { removeFromCart, updateQuantity, validateCoupon, removeCoupon, clearCart } from '../store/slices/cartSlice';
 import MainLayout from '../components/layout/MainLayout';
-import { Minus, Plus, Trash2, Tag, ShoppingCart, ArrowRight, X, MapPin } from 'lucide-react';
+import { Minus, Plus, Trash2, Tag, ShoppingCart, ArrowRight, X, Info } from 'lucide-react';
 import { useState } from 'react';
 import { formatPrice } from '../utils/helpers';
 import { useAuth } from '../hooks/useAuth';
@@ -13,7 +13,6 @@ const CartPage = () => {
   const { user } = useAuth();
   const { items, restaurantName, totalAmount, appliedCoupon, discount, couponStatus, couponError } = useSelector((s) => s.cart);
   const [couponCode, setCouponCode] = useState('');
-  const [selectedAddressId, setSelectedAddressId] = useState(user?.addresses?.[0]?.id || '');
 
   const deliveryFee = totalAmount > 0 ? 15 : 0;
   const grandTotal  = Math.max(0, totalAmount + deliveryFee - discount);
@@ -87,33 +86,6 @@ const CartPage = () => {
               </div>
             ))}
 
-            {/* Address Selection */}
-            {user?.addresses?.length > 0 && (
-              <div className="card p-5">
-                <h3 className="font-bold mb-3 flex items-center gap-2 text-textColor-light dark:text-textColor-dark">
-                  <MapPin size={18} className="text-primary" /> Teslimat Adresi
-                </h3>
-                <div className="space-y-2">
-                  {user.addresses.map((addr) => (
-                    <label key={addr.id} className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                      selectedAddressId === addr.id ? 'border-primary bg-primary/5' : 'border-gray-100 dark:border-gray-800 hover:border-primary/50'
-                    }`}>
-                      <input
-                        type="radio" name="address" value={addr.id}
-                        checked={selectedAddressId === addr.id}
-                        onChange={() => setSelectedAddressId(addr.id)}
-                        className="mt-0.5 accent-primary"
-                      />
-                      <div>
-                        <p className="text-sm font-semibold text-textColor-light dark:text-textColor-dark">{addr.title}</p>
-                        <p className="text-xs text-gray-400">{addr.detail}</p>
-                      </div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Coupon */}
             <div className="card p-5">
               <h3 className="font-bold mb-3 flex items-center gap-2 text-textColor-light dark:text-textColor-dark">
@@ -169,6 +141,16 @@ const CartPage = () => {
                 <span className="font-bold text-textColor-light dark:text-textColor-dark">Toplam</span>
                 <span className="text-xl font-bold gradient-text">{formatPrice(grandTotal)}</span>
               </div>
+              {/* Guest info banner */}
+              {!user && (
+                <div className="flex items-start gap-3 p-4 bg-primary/5 border border-primary/20 rounded-xl text-sm">
+                  <Info size={18} className="text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-primary">Misafir olarak sipariş verebilirsiniz</p>
+                    <p className="text-gray-500 text-xs mt-0.5">Ödeme sayfasında iletişim ve adres bilgilerinizi girerek giriş yapmadan sipariş verebilirsiniz.</p>
+                  </div>
+                </div>
+              )}
               <button
                 onClick={() => navigate('/checkout')}
                 className="btn-primary w-full justify-center mt-5 h-12 text-base"

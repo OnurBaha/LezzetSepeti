@@ -44,7 +44,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const { item, restaurantId, restaurantName } = action.payload;
+      const { item, restaurantId, restaurantName, quantity = 1 } = action.payload;
       // Farklı restoran uyarısı yerine mevcut sepeti temizle
       if (state.restaurantId && state.restaurantId !== restaurantId) {
         state.items = [];
@@ -55,12 +55,12 @@ const cartSlice = createSlice({
       state.restaurantName = restaurantName;
 
       const existing = state.items.find(
-        (i) => i.menuId === item.menuId && JSON.stringify(i.selectedOptions) === JSON.stringify(item.selectedOptions)
+        (i) => i.menuId === item.menuId && JSON.stringify(i.selectedOptions) === JSON.stringify(item.selectedOptions) && i.price === item.price
       );
       if (existing) {
-        existing.quantity += 1;
+        existing.quantity += quantity;
       } else {
-        state.items.push({ ...item, quantity: 1 });
+        state.items.push({ ...item, quantity });
       }
       state.totalAmount = calcTotal(state.items);
     },

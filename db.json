@@ -338,23 +338,6 @@
       "commission": 13,
       "totalRevenue": 318700,
       "createdAt": "2024-12-15"
-    },
-    {
-      "name": "BayDöner",
-      "cuisine": "Döner",
-      "address": "Esenler, İstanbul",
-      "deliveryTime": "30-40 dk",
-      "deliveryFee": 37,
-      "minOrderAmount": 150,
-      "commission": 15,
-      "isOpen": true,
-      "id": "_bgF0oas_C4",
-      "isApproved": true,
-      "status": "active",
-      "rating": 0,
-      "reviewCount": 0,
-      "totalRevenue": 0,
-      "createdAt": "2026-07-02"
     }
   ],
   "menus": [
@@ -542,7 +525,388 @@
       "category": "Çorbalar",
       "inStock": true,
       "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80",
-      "options": []
+      "options": [
+        {
+          "id": "o8",
+          "title": "Porsiyon Seçimi",
+          "required": true,
+          "items": [
+            "Küçük",
+            "Orta",
+            "Büyük"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-504",
+      "restaurantId": "r-201",
+      "name": "Premium Burger",
+      "description": "200gr iki kata köfte, bakon, cheddar peyniri, caramelized soğan.",
+      "price": 220,
+      "category": "Burgerler",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80",
+      "options": [
+        {
+          "id": "o9",
+          "title": "Sos Seçimi",
+          "required": true,
+          "items": [
+            "Ranch Sos",
+            "BBQ Sos",
+            "Teriyaki Sos",
+            "Wasabi Sos",
+            "Ketchup",
+            "Mayonez"
+          ]
+        },
+        {
+          "id": "o10",
+          "title": "Peynir Seçimi",
+          "required": false,
+          "items": [
+            "Cheddar",
+            "Mozzarella",
+            "Gouda",
+            "Peynir yok"
+          ]
+        },
+        {
+          "id": "o11",
+          "title": "Ekstra Malzeme",
+          "required": false,
+          "items": [
+            "Ekstra Bacon (+20₺)",
+            "Ekstra Köfte (+25₺)",
+            "Kızarmış Soğan (+10₺)",
+            "Mantar (+15₺)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-505",
+      "restaurantId": "r-201",
+      "name": "Tavuk Burger",
+      "description": "Tavuk göğsü file, limon ve herbs ile marineli, taze sebzeler.",
+      "price": 155,
+      "category": "Burgerler",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1562547256-3e62d396a127?w=400&q=80",
+      "options": [
+        {
+          "id": "o12",
+          "title": "Sos Seçimi",
+          "required": true,
+          "items": [
+            "Tartar Sos",
+            "Sriracha Mayo",
+            "Ranch Sos",
+            "Ketçap"
+          ]
+        },
+        {
+          "id": "o13",
+          "title": "Porsiyon",
+          "required": false,
+          "items": [
+            "Normal",
+            "İkili (+50₺)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-506",
+      "restaurantId": "r-202",
+      "name": "4 Fromage Pizza",
+      "description": "Dört çeşit peynir: mozzarella, gorgonzola, ricotta, parmesan.",
+      "price": 240,
+      "category": "Pizzalar",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80",
+      "options": [
+        {
+          "id": "o14",
+          "title": "Hamur Seçimi",
+          "required": true,
+          "items": [
+            "İnce Hamur",
+            "Kalın Hamur",
+            "Tam Buğday",
+            "Glutensiz"
+          ]
+        },
+        {
+          "id": "o15",
+          "title": "Ek Soslar",
+          "required": false,
+          "items": [
+            "Domates Sosu",
+            "Beyaz Sos",
+            "Pesto",
+            "BBQ Sos"
+          ]
+        },
+        {
+          "id": "o16",
+          "title": "Boyut Seçimi",
+          "required": false,
+          "items": [
+            "30cm",
+            "35cm (+30₺)",
+            "40cm (+50₺)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-507",
+      "restaurantId": "r-202",
+      "name": "Végé Pizza",
+      "description": "Vejetaryen: mantar, domates, zeytin, ıspanak, patlıcan.",
+      "price": 190,
+      "category": "Pizzalar",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1511689915661-18d345dbffff?w=400&q=80",
+      "options": [
+        {
+          "id": "o17",
+          "title": "Hamur Seçimi",
+          "required": true,
+          "items": [
+            "İnce Hamur",
+            "Kalın Hamur",
+            "Tam Buğday"
+          ]
+        },
+        {
+          "id": "o18",
+          "title": "Ekstra Malzeme",
+          "required": false,
+          "items": [
+            "Ekstra Peynir (+20₺)",
+            "Ekstra Mantar (+15₺)",
+            "Arugula (+15₺)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-508",
+      "restaurantId": "r-203",
+      "name": "Adana Kebab",
+      "description": "150gr Adana kebap, taze pide, mevsim salata, yoğurt.",
+      "price": 185,
+      "category": "Kebaplar",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
+      "options": [
+        {
+          "id": "o19",
+          "title": "Sos Seçimi",
+          "required": false,
+          "items": [
+            "Acı Sos",
+            "Sarımsaklı Yoğurt",
+            "Ezme",
+            "Biber Sos",
+            "Sadece Yoğurt"
+          ]
+        },
+        {
+          "id": "o20",
+          "title": "Ekstra Malzeme",
+          "required": false,
+          "items": [
+            "Ekstra Kebap (+50₺)",
+            "Ekstra Pide (+20₺)"
+          ]
+        },
+        {
+          "id": "o21",
+          "title": "İçecek",
+          "required": false,
+          "items": [
+            "Ayran",
+            "Kola",
+            "Fanta"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-509",
+      "restaurantId": "r-203",
+      "name": "Şiş Kebab",
+      "description": "250gr marineli kuzu şiş, pirinç pilaw, taze sebzeler.",
+      "price": 320,
+      "category": "Kebaplar",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
+      "options": [
+        {
+          "id": "o22",
+          "title": "Et Seçimi",
+          "required": true,
+          "items": [
+            "Kuzu",
+            "Tavuk",
+            "Karma (Kuzu + Tavuk)"
+          ]
+        },
+        {
+          "id": "o23",
+          "title": "Sos Seçimi",
+          "required": false,
+          "items": [
+            "Acı Sos",
+            "Sarımsaklı Yoğurt",
+            "Ezme",
+            "Sadece Tuz-Sumak"
+          ]
+        },
+        {
+          "id": "o24",
+          "title": "Yan Ürün",
+          "required": false,
+          "items": [
+            "Pirinç Pilaw",
+            "Patates Kızartması",
+            "Bulgur Pilaw"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-510",
+      "restaurantId": "r-202",
+      "name": "Fettuccine Alfredo",
+      "description": "Fettuccine, kremalı parmesan sosu, siyah biber.",
+      "price": 175,
+      "category": "Makarna",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&q=80",
+      "options": [
+        {
+          "id": "o25",
+          "title": "Protein Seçimi",
+          "required": false,
+          "items": [
+            "Sadece Vejetaryen",
+            "Tavuk Ekle (+40₺)",
+            "Shrimp Ekle (+60₺)",
+            "Prosciutto Ekle (+50₺)"
+          ]
+        },
+        {
+          "id": "o26",
+          "title": "Porsiyon Boyutu",
+          "required": true,
+          "items": [
+            "Normal",
+            "Büyük (+30₺)"
+          ]
+        },
+        {
+          "id": "o27",
+          "title": "Ek Malzeme",
+          "required": false,
+          "items": [
+            "Ekstra Parmesan",
+            "Kırmızı Biber Aroması",
+            "Taze Fesleğen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-511",
+      "restaurantId": "r-202",
+      "name": "Carbonara Pasta",
+      "description": "Spaghetti, guanciale, pecorino, yumurta, siyah biber.",
+      "price": 195,
+      "category": "Makarna",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1612874742237-6526221fcf4f?w=400&q=80",
+      "options": [
+        {
+          "id": "o28",
+          "title": "Portsiyon Boyutu",
+          "required": true,
+          "items": [
+            "Normal",
+            "Büyük (+30₺)"
+          ]
+        },
+        {
+          "id": "o29",
+          "title": "Ek Soslar",
+          "required": false,
+          "items": [
+            "Domates Sos",
+            "Pesto",
+            "Trüf Yağı (+40₺)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-512",
+      "restaurantId": "r-201",
+      "name": "Soğan Halkası Sepeti",
+      "description": "Çıtır soğan halkaları, ranch ve BBQ sos ile.",
+      "price": 95,
+      "category": "Yan Ürünler",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1639024471283-03518883512d?w=400&q=80",
+      "options": [
+        {
+          "id": "o30",
+          "title": "Sos Seçimi",
+          "required": true,
+          "items": [
+            "Ranch Sos",
+            "BBQ Sos",
+            "Honey Garlic Sos",
+            "Sriracha Mayo",
+            "Her İkisi"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m-513",
+      "restaurantId": "r-201",
+      "name": "Mozzarella Sticks",
+      "description": "Çıtır kaplanmış mozzarella çubuklarıyla birlikte marinara sosu.",
+      "price": 110,
+      "category": "Yan Ürünler",
+      "inStock": true,
+      "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
+      "options": [
+        {
+          "id": "o31",
+          "title": "Soslar",
+          "required": true,
+          "items": [
+            "Marinara",
+            "Ranch Sos",
+            "Garlic Sos",
+            "Her İkisi"
+          ]
+        },
+        {
+          "id": "o32",
+          "title": "Porsiyon",
+          "required": false,
+          "items": [
+            "6'lı",
+            "9'lı (+25₺)"
+          ]
+        }
+      ]
     }
   ],
   "coupons": [
@@ -641,7 +1005,8 @@
       "customerNote": "Kapı zili çalışmıyor, lütfen mesaj atın.",
       "couponCode": "LEZZET20",
       "orderDate": "2026-06-28T18:30:00Z",
-      "deliveredAt": "2026-06-28T19:05:00Z"
+      "deliveredAt": "2026-06-28T19:05:00Z",
+      "reviewed": true
     },
     {
       "id": "ord-502",
@@ -668,12 +1033,12 @@
       },
       "paymentMethod": "door_cash",
       "paymentStatus": "pending",
-      "status": "preparing",
+      "status": "delivered",
       "address": "Kadıköy, Moda Cad. No:12, İstanbul",
       "customerNote": "",
       "couponCode": null,
       "orderDate": "2026-07-02T11:00:00Z",
-      "deliveredAt": null
+      "deliveredAt": "2026-07-02T21:26:13.455Z"
     },
     {
       "id": "ord-503",
@@ -748,6 +1113,90 @@
       "orderDate": "2026-07-02T10:42:24.295Z",
       "deliveredAt": null,
       "courierId": null
+    },
+    {
+      "customerId": null,
+      "guestInfo": {
+        "firstName": "AAA",
+        "lastName": "BBB",
+        "email": "onur@gmail.com",
+        "phone": "05555555577"
+      },
+      "restaurantId": "r-202",
+      "restaurantName": "Napoli Pizza",
+      "items": [
+        {
+          "menuId": "m-401",
+          "name": "Margherita Pizza",
+          "quantity": 1,
+          "selectedOptions": [
+            "Kalın Hamur",
+            "Ekstra Peynir (+20₺)"
+          ],
+          "price": 200
+        },
+        {
+          "menuId": "m-506",
+          "name": "4 Fromage Pizza",
+          "quantity": 1,
+          "selectedOptions": [
+            "Glutensiz",
+            "Beyaz Sos",
+            "35cm (+30₺)"
+          ],
+          "price": 270
+        }
+      ],
+      "financials": {
+        "subTotal": 470,
+        "deliveryFee": 15,
+        "discount": 0,
+        "totalAmount": 485
+      },
+      "paymentMethod": "online_credit_card",
+      "address": "Esenler",
+      "customerNote": "a",
+      "couponCode": null,
+      "id": "TqPG-nObDOc",
+      "status": "delivered",
+      "paymentStatus": "paid",
+      "orderDate": "2026-07-02T21:23:38.086Z",
+      "deliveredAt": "2026-07-02T21:26:19.003Z",
+      "courierId": null
+    },
+    {
+      "customerId": "u-101",
+      "guestInfo": null,
+      "restaurantId": "r-202",
+      "restaurantName": "Napoli Pizza",
+      "items": [
+        {
+          "menuId": "m-401",
+          "name": "Margherita Pizza",
+          "quantity": 1,
+          "selectedOptions": [
+            "İnce Hamur",
+            "Ekstra Peynir (+20₺)"
+          ],
+          "price": 200
+        }
+      ],
+      "financials": {
+        "subTotal": 200,
+        "deliveryFee": 15,
+        "discount": 0,
+        "totalAmount": 215
+      },
+      "paymentMethod": "door_cash",
+      "address": "Kadıköy, Moda Cad. No:12, İstanbul",
+      "customerNote": "",
+      "couponCode": null,
+      "id": "Y7W2vdEnzDg",
+      "status": "received",
+      "paymentStatus": "paid",
+      "orderDate": "2026-07-02T21:31:33.774Z",
+      "deliveredAt": null,
+      "courierId": null
     }
   ],
   "reviews": [
@@ -811,6 +1260,70 @@
       "id": "XLLtp4j28vE",
       "restaurantId": "r-201",
       "averageRating": 4,
+      "merchantReply": null,
+      "isVisible": true,
+      "createdAt": "2026-07-02"
+    },
+    {
+      "ratings": {
+        "speed": 3,
+        "service": 3,
+        "flavor": 3
+      },
+      "comment": "",
+      "customerId": "u-101",
+      "orderId": "ord-501",
+      "id": "Rr7ggY5Tv-s",
+      "restaurantId": "r-201",
+      "averageRating": 3,
+      "merchantReply": null,
+      "isVisible": true,
+      "createdAt": "2026-07-02"
+    },
+    {
+      "ratings": {
+        "speed": 4,
+        "service": 4,
+        "flavor": 4
+      },
+      "comment": "",
+      "customerId": "u-101",
+      "orderId": "ord-501",
+      "id": "6JyXACDJpd0",
+      "restaurantId": "r-201",
+      "averageRating": 4,
+      "merchantReply": null,
+      "isVisible": true,
+      "createdAt": "2026-07-02"
+    },
+    {
+      "ratings": {
+        "speed": 4,
+        "service": 4,
+        "flavor": 5
+      },
+      "comment": "",
+      "customerId": "u-101",
+      "orderId": "ord-502",
+      "id": "NFV9Isdf8Xw",
+      "restaurantId": "r-202",
+      "averageRating": 4.33,
+      "merchantReply": null,
+      "isVisible": true,
+      "createdAt": "2026-07-02"
+    },
+    {
+      "ratings": {
+        "speed": 5,
+        "service": 5,
+        "flavor": 5
+      },
+      "comment": "iyiydi",
+      "customerId": "u-101",
+      "orderId": "ord-501",
+      "id": "k9yLKYc_fok",
+      "restaurantId": "r-201",
+      "averageRating": 5,
       "merchantReply": null,
       "isVisible": true,
       "createdAt": "2026-07-02"

@@ -6,6 +6,7 @@ import Modal from '../../components/common/Modal';
 import { Plus, Edit2, Trash2, Search, CheckCircle, XCircle, PauseCircle } from 'lucide-react';
 import { formatPrice } from '../../utils/helpers';
 import StarRating from '../../components/common/StarRating';
+import toast from 'react-hot-toast';
 
 const EMPTY_FORM = { name: '', cuisine: '', address: '', deliveryTime: '30-40 dk', deliveryFee: 15, minOrderAmount: 100, commission: 15 };
 
@@ -16,6 +17,7 @@ const AdminRestaurants = () => {
   const [isModal, setIsModal] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
   useEffect(() => { dispatch(fetchRestaurants()); }, [dispatch]);
 
@@ -38,7 +40,13 @@ const AdminRestaurants = () => {
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Bu restoranı silmek istediğinize emin misiniz?')) dispatch(deleteRestaurant(id));
+    setConfirmDeleteId(id);
+  };
+
+  const confirmDelete = () => {
+    dispatch(deleteRestaurant(confirmDeleteId));
+    toast.success('Restoran silindi');
+    setConfirmDeleteId(null);
   };
 
   return (
@@ -47,6 +55,19 @@ const AdminRestaurants = () => {
         <h1 className="text-2xl font-bold text-textColor-light dark:text-textColor-dark">Restoran Yönetimi</h1>
         <button onClick={openAdd} className="btn-primary"><Plus size={18} /> Restoran Ekle</button>
       </div>
+
+      {confirmDeleteId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-2xl max-w-sm w-full mx-4">
+            <h3 className="font-bold text-lg mb-2">Restoranı Sil</h3>
+            <p className="text-sm text-gray-500 mb-5">Bu restoranı kalıcı olarak silmek istediğinize emin misiniz?</p>
+            <div className="flex gap-3">
+              <button onClick={confirmDelete} className="btn-primary flex-1 justify-center !bg-danger hover:!bg-red-600 !border-danger">Evet, Sil</button>
+              <button onClick={() => setConfirmDeleteId(null)} className="btn-secondary flex-1 justify-center">İptal</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Search */}
       <div className="relative mb-5">

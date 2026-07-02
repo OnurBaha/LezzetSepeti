@@ -18,13 +18,25 @@ const SORT_OPTIONS = [
 const RestaurantsPage = () => {
   const dispatch = useDispatch();
   const { items, status, filters } = useSelector((s) => s.restaurant);
-  const [search, setSearch] = useState('');
-  const [selectedCuisine, setSelectedCuisine] = useState('Tümü');
+  const [search, setSearch] = useState(filters.search || '');
+  const [selectedCuisine, setSelectedCuisine] = useState(filters.cuisine || 'Tümü');
   const [sortBy, setSortBy] = useState('rating');
   const [minRating, setMinRating] = useState(0);
   const [showOnlyOpen, setShowOnlyOpen] = useState(false);
 
   useEffect(() => { dispatch(fetchRestaurants()); }, [dispatch]);
+
+  // Ana sayfadan filter geldiyse uygula, sonra Redux'u temizle
+  useEffect(() => {
+    if (filters.search) {
+      setSearch(filters.search);
+      dispatch(setFilters({ search: '' }));
+    }
+    if (filters.cuisine) {
+      setSelectedCuisine(filters.cuisine);
+      dispatch(setFilters({ cuisine: '' }));
+    }
+  }, []);
 
   // Filter + sort
   const filtered = items

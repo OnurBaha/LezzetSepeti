@@ -8,12 +8,15 @@ import MainLayout from '../components/layout/MainLayout';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import Modal from '../components/common/Modal';
 import StarRating from '../components/common/StarRating';
-import { Clock, MapPin, ShoppingBag, Plus, Minus, Star, MessageSquare, Zap, ChevronDown, ChevronUp, Info, Check } from 'lucide-react';
+import { Clock, MapPin, ShoppingBag, Plus, Minus, Star, MessageSquare, Zap, ChevronDown, ChevronUp, Info, Check, ShoppingCart } from 'lucide-react';
 import { formatPrice, getCuisineIcon, formatDate } from '../utils/helpers';
 import { useAuth } from '../hooks/useAuth';
+import toast from 'react-hot-toast';
 
-const MenuItemCard = ({ item, onAdd }) => {
+const MenuItemCard = ({ item, onSelectOptions, onQuickAdd }) => {
   const [expanded, setExpanded] = useState(false);
+  const hasOptions = item.options?.length > 0;
+
   return (
     <div className={`card p-4 transition-all duration-200 ${!item.inStock ? 'opacity-50' : 'hover:shadow-md'}`}>
       <div className="flex gap-4">
@@ -26,26 +29,67 @@ const MenuItemCard = ({ item, onAdd }) => {
             {!item.inStock && <span className="badge badge-danger shrink-0">Tükendi</span>}
           </div>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-1 line-clamp-2">{item.description}</p>
-          {item.options?.length > 0 && (
-            <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-1 text-xs text-primary mt-1 font-medium">
-              <Info size={12} /> Seçenekler {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-            </button>
-          )}
-          {expanded && item.options?.map((opt) => (
-            <div key={opt.id} className="mt-2 pl-2 border-l-2 border-primary/30">
-              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{opt.title}{opt.required && ' *'}</p>
-              <p className="text-xs text-gray-400">{opt.items.join(', ')}</p>
+          
+          {/* Seçenekler Gösterimi */}
+          {hasOptions && (
+            <div className="mt-2">
+              <button 
+                onClick={() => setExpanded(!expanded)} 
+                className="flex items-center gap-1.5 text-xs text-primary font-medium hover:text-primary-700"
+              >
+                <Info size={13} /> 
+                Seçenekler ({item.options.length}) 
+                {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+              </button>
+              
+              {expanded && (
+                <div className="mt-3 space-y-2 bg-primary/5 rounded-lg p-3">
+                  {item.options.map((opt) => (
+                    <div key={opt.id} className="space-y-1">
+                      <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                        {opt.required ? (
+                          <>
+                            <span className="text-danger">●</span> {opt.title} <span className="text-danger font-bold">*</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-success">◯</span> {opt.title}
+                          </>
+                        )}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5 ml-1">
+                        {opt.items.map((item, idx) => (
+                          <span key={idx} className="text-xs bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded border border-gray-200 dark:border-gray-600">
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          ))}
+          )}
+          
           <div className="flex items-center justify-between mt-3">
             <span className="font-bold text-primary">{formatPrice(item.price)}</span>
-            <button
-              onClick={() => onAdd(item)}
-              disabled={!item.inStock}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg hover:bg-primary-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-primary"
-            >
-              <Plus size={14} /> Ekle
-            </button>
+            {hasOptions ? (
+              <button
+                onClick={() => onSelectOptions(item)}
+                disabled={!item.inStock}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg hover:bg-primary-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-primary"
+              >
+                <Plus size={14} /> Seç
+              </button>
+            ) : (
+              <button
+                onClick={() => onQuickAdd(item)}
+                disabled={!item.inStock}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg hover:bg-primary-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-primary"
+              >
+                <Plus size={14} /> Ekle
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -53,16 +97,155 @@ const MenuItemCard = ({ item, onAdd }) => {
   );
 };
 
+// Fiyat parse yardımcısı: "Ekstra Peynir (+15₺)" -> 15
+const parseOptionPrice = (optionValue) => {
+  const match = optionValue.match(/(\+)(\d+(?:[.,]\d+)?)\s*₺/);
+  return match ? parseFloat(match[2].replace(',', '.')) : 0;
+};
+
+// Seçenek Seçim Modalı
+const OptionSelectionModal = ({ isOpen, item, onClose, onConfirm }) => {
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    if (item?.options) {
+      const defaults = {};
+      item.options.forEach(opt => {
+        defaults[opt.id] = opt.required ? [opt.items[0]] : [];
+      });
+      setSelectedOptions(defaults);
+      setQuantity(1);
+    }
+  }, [item]);
+
+  if (!item) return null;
+
+  // Seçilen eklentilerden gelen toplam ek fiyat
+  const extraPrice = Object.values(selectedOptions).flat().reduce((sum, val) => sum + parseOptionPrice(val), 0);
+  const unitPrice = item.price + extraPrice;
+  const totalPrice = unitPrice * quantity;
+
+  const handleToggleOption = (optId, value) => {
+    setSelectedOptions(prev => {
+      const opt = item.options.find(o => o.id === optId);
+      const current = prev[optId] || [];
+      // required olmayan seçeneklerde çoklu seçim; required olanlarda tekli
+      if (!opt?.required) {
+        return {
+          ...prev,
+          [optId]: current.includes(value) ? current.filter(v => v !== value) : [...current, value]
+        };
+      } else {
+        return { ...prev, [optId]: [value] };
+      }
+    });
+  };
+
+  const handleConfirm = () => {
+    for (const opt of item.options) {
+      if (opt.required && (!selectedOptions[opt.id] || selectedOptions[opt.id].length === 0)) {
+        toast.error(`Lütfen ${opt.title} seçin`);
+        return;
+      }
+    }
+    onConfirm(selectedOptions, quantity, unitPrice);
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} title={item.name} size="md">
+      <div className="space-y-4 max-h-96 overflow-y-auto">
+        {/* Seçenekler */}
+        {item.options?.map((opt) => (
+          <div key={opt.id}>
+            <p className="font-semibold text-sm mb-2 flex items-center gap-2">
+              {opt.title}
+              {opt.required && <span className="text-danger font-bold">*</span>}
+              {!opt.required && <span className="text-xs text-gray-400 font-normal">(İsteğe bağlı)</span>}
+            </p>
+            <div className="space-y-1">
+              {opt.items.map((optValue) => {
+                const optExtraPrice = parseOptionPrice(optValue);
+                const isSelected = selectedOptions[opt.id]?.includes(optValue) || false;
+                return (
+                  <label
+                    key={optValue}
+                    className={`flex items-center gap-3 p-2.5 rounded-lg cursor-pointer transition-all ${
+                      isSelected
+                        ? 'bg-primary/10 border border-primary/30'
+                        : 'hover:bg-gray-50 dark:hover:bg-gray-800 border border-transparent'
+                    }`}
+                  >
+                    <input
+                      type={opt.required ? 'radio' : 'checkbox'}
+                      checked={isSelected}
+                      onChange={() => handleToggleOption(opt.id, optValue)}
+                      className="w-4 h-4 accent-primary"
+                    />
+                    <span className="text-sm text-textColor-light dark:text-textColor-dark flex-1">
+                      {optValue}
+                    </span>
+                    {optExtraPrice > 0 && (
+                      <span className="text-xs font-bold text-primary shrink-0">+{optExtraPrice}₺</span>
+                    )}
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+
+        {/* Miktar Seçimi */}
+        <div className="border-t dark:border-gray-700 pt-4">
+          <p className="font-semibold text-sm mb-3">Miktar</p>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/10 hover:text-primary transition-all"
+            >
+              <Minus size={18} />
+            </button>
+            <span className="font-bold text-lg w-8 text-center">{quantity}</span>
+            <button
+              onClick={() => setQuantity(quantity + 1)}
+              className="w-10 h-10 rounded-lg bg-primary text-white flex items-center justify-center hover:bg-primary-600 transition-all"
+            >
+              <Plus size={18} />
+            </button>
+            <div className="flex-1 text-right">
+              {extraPrice > 0 && (
+                <p className="text-xs text-gray-400">
+                  {formatPrice(item.price)} + {formatPrice(extraPrice)} ekstra
+                </p>
+              )}
+              <p className="text-lg font-bold text-primary">{formatPrice(totalPrice)}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex gap-3 pt-4 border-t dark:border-gray-700 mt-4">
+        <button onClick={onClose} className="btn-secondary flex-1 justify-center">
+          İptal
+        </button>
+        <button onClick={handleConfirm} className="btn-primary flex-1 justify-center gap-2">
+          <ShoppingCart size={16} /> Sepete Ekle ({formatPrice(totalPrice)})
+        </button>
+      </div>
+    </Modal>
+  );
+};
+
 const RestaurantDetailPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
   const { currentRestaurant: restaurant, currentMenus: menus, detailStatus } = useSelector((s) => s.restaurant);
   const { items: reviews } = useSelector((s) => s.review);
   const [activeTab, setActiveTab] = useState('menu');
   const [addedItem, setAddedItem] = useState(null);
-  const [confirmModal, setConfirmModal] = useState(false);
+  const [selectedItemForOptions, setSelectedItemForOptions] = useState(null);
+  const [optionModalOpen, setOptionModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchRestaurantDetails(id));
@@ -71,9 +254,48 @@ const RestaurantDetailPage = () => {
 
   const categories = [...new Set(menus.map((m) => m.category))];
 
-  const handleAddToCart = (item) => {
-    if (!isAuthenticated) { navigate('/login'); return; }
-    dispatch(addToCart({ item: { menuId: item.id, name: item.name, price: item.price, image: item.image, selectedOptions: [] }, restaurantId: id, restaurantName: restaurant?.name }));
+  const handleSelectOptions = (item) => {
+    setSelectedItemForOptions(item);
+    setOptionModalOpen(true);
+  };
+
+  const handleConfirmOptions = (selectedOptions, quantity, unitPrice) => {
+    const selectedOptionsList = [];
+    for (const [optId, values] of Object.entries(selectedOptions)) {
+      selectedOptionsList.push(...values);
+    }
+
+    // Aynı seçeneklerle aynı ürün varsa mevcut miktara ekle, yoksa quantity adet ekle
+    dispatch(addToCart({
+      item: {
+        menuId: selectedItemForOptions.id,
+        name: selectedItemForOptions.name,
+        price: unitPrice ?? selectedItemForOptions.price,
+        image: selectedItemForOptions.image,
+        selectedOptions: selectedOptionsList
+      },
+      quantity,
+      restaurantId: id,
+      restaurantName: restaurant?.name
+    }));
+
+    setAddedItem(selectedItemForOptions.name);
+    setOptionModalOpen(false);
+    setTimeout(() => setAddedItem(null), 2000);
+  };
+
+  const handleQuickAdd = (item) => {
+    dispatch(addToCart({
+      item: {
+        menuId: item.id,
+        name: item.name,
+        price: item.price,
+        image: item.image,
+        selectedOptions: []
+      },
+      restaurantId: id,
+      restaurantName: restaurant?.name
+    }));
     setAddedItem(item.name);
     setTimeout(() => setAddedItem(null), 2000);
   };
@@ -146,7 +368,7 @@ const RestaurantDetailPage = () => {
                     </h3>
                     <div className="grid grid-cols-1 gap-3">
                       {menus.filter((m) => m.category === cat).map((item) => (
-                        <MenuItemCard key={item.id} item={item} onAdd={handleAddToCart} />
+                        <MenuItemCard key={item.id} item={item} onSelectOptions={handleSelectOptions} onQuickAdd={handleQuickAdd} />
                       ))}
                     </div>
                   </div>
@@ -244,6 +466,14 @@ const RestaurantDetailPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Seçenek Seçim Modalı */}
+      <OptionSelectionModal
+        isOpen={optionModalOpen}
+        item={selectedItemForOptions}
+        onClose={() => setOptionModalOpen(false)}
+        onConfirm={handleConfirmOptions}
+      />
     </MainLayout>
   );
 };

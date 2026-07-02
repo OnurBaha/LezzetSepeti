@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRestaurants, setFilters } from '../store/slices/restaurantSlice';
@@ -27,6 +27,8 @@ const HomePage = () => {
     dispatch(fetchRestaurants());
   }, [dispatch]);
 
+  const [searchQuery, setSearchQuery] = useState('');
+
   const handleCategoryClick = (cuisine) => {
     dispatch(setFilters({ cuisine }));
     navigate('/restaurants');
@@ -34,6 +36,9 @@ const HomePage = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    if (searchQuery.trim()) {
+      dispatch(setFilters({ search: searchQuery.trim() }));
+    }
     navigate('/restaurants');
   };
 
@@ -73,8 +78,8 @@ const HomePage = () => {
                   type="text"
                   placeholder="Restoran veya yemek ara..."
                   className="input pl-11 h-14 text-base shadow-sm"
-                  readOnly
-                  onClick={() => navigate('/restaurants')}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
               <button type="submit" className="btn-primary h-14 px-6 text-base">

@@ -49,8 +49,8 @@ function App() {
         <Route path="/merchant/register"  element={<MerchantRegisterPage />} />
 
         {/* Customer Protected Routes */}
-        <Route path="/cart"     element={<ProtectedRoute allowedRoles={['customer']}><CartPage /></ProtectedRoute>} />
-        <Route path="/checkout" element={<ProtectedRoute allowedRoles={['customer']}><CheckoutPage /></ProtectedRoute>} />
+        <Route path="/cart"     element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/orders"   element={<ProtectedRoute allowedRoles={['customer']}><OrdersPage /></ProtectedRoute>} />
 
         {/* Merchant Protected Routes */}

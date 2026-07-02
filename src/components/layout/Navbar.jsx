@@ -71,8 +71,8 @@ const Navbar = () => {
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
-            {/* Cart (only for customers) */}
-            {isAuthenticated && !isAdmin && !isMerchant && !isCourier && (
+            {/* Cart - giriş yapması gerekmiyor */}
+            {!isAdmin && !isMerchant && !isCourier && (
               <Link
                 to="/cart"
                 className="relative p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-primary/10 hover:text-primary transition-all duration-200"
